@@ -9,11 +9,9 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent } from "@/components/ui/card"
 import { MapPin, Users, Calendar, CheckCircle, Instagram } from "lucide-react"
-import Link from "next/link"
 import Image from "next/image"
 
 export default function SpodyLanding() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [formData, setFormData] = useState({
     name: "",
     university: "",
@@ -37,8 +35,29 @@ export default function SpodyLanding() {
     e.preventDefault()
     setIsSubmitting(true)
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1000))
+    try {
+      const response = await fetch("/api/saveData", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          uni: formData.university,
+          email: formData.email,
+          message: formData.feature,
+        }),
+      })
+
+      if (!response.ok) {
+        throw new Error("Failed to submit data")
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error)
+      alert("There was an error submitting your form. Please try again later.")
+      setIsSubmitting(false)
+      return
+    }
 
     setIsSubmitted(true)
     setIsSubmitting(false)
@@ -59,36 +78,8 @@ export default function SpodyLanding() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-white/90 backdrop-blur-md z-50 border-b border-gray-100">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
-              <Image src="/images/spody-logo.png" alt="Spody Logo" width={120} height={40} className="h-8 w-auto" />
-            </div>
-
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center">
-              <Button className="bg-[#fea46b] hover:bg-[#fea46b]/90 text-white" onClick={() => scrollToSection("cta")}>
-                Get Started
-              </Button>
-            </div>
-
-            {/* Mobile menu button */}
-            <div className="md:hidden">
-              <Button
-                className="bg-[#fea46b] hover:bg-[#fea46b]/90 text-white text-sm px-4"
-                onClick={() => scrollToSection("cta")}
-              >
-                Get Started
-              </Button>
-            </div>
-          </div>
-        </div>
-      </nav>
-
       {/* Hero Section */}
-      <section className="min-h-screen flex items-center pt-16">
+      <section className="min-h-screen flex items-center pt-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div
@@ -100,14 +91,14 @@ export default function SpodyLanding() {
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#011936] leading-tight mb-6">
                 Study Smarter. <span className="text-[#fea46b]">Connect Deeper.</span>
               </h1>
-              <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+              <p className="sm:text-xl text-gray-600 mb-8 leading-relaxed">
                 Find the perfect study spot and discover amazing campus events. Your ultimate student companion for
                 academic success and social connection.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button
                   size="lg"
-                  className="bg-[#fea46b] hover:bg-[#fea46b]/90 text-white px-8 py-4 text-lg font-semibold hover:shadow-lg hover:shadow-[#fea46b]/25 transition-all duration-300"
+                  className="bg-[#fea46b] cursor-pointer hover:bg-[#fea46b]/90 text-white px-8 py-4 sm:text-lg font-semibold hover:shadow-lg hover:shadow-[#fea46b]/25 transition-all duration-300"
                   onClick={() => scrollToSection("cta")}
                 >
                   Join the Beta
@@ -123,7 +114,7 @@ export default function SpodyLanding() {
             >
               <div className="relative">
                 <Image
-                  src="/images/mockup1.png"
+                  src="/mockup.png"
                   alt="Spody App Mockup"
                   width={600}
                   height={600}
@@ -139,19 +130,6 @@ export default function SpodyLanding() {
                     duration: 3,
                     repeat: Number.POSITIVE_INFINITY,
                     ease: "easeInOut",
-                  }}
-                />
-                <motion.div
-                  className="absolute -bottom-4 -left-4 w-32 h-32 bg-[#011936] rounded-full opacity-10"
-                  animate={{
-                    scale: [1, 1.1, 1],
-                    opacity: [0.1, 0.2, 0.1],
-                  }}
-                  transition={{
-                    duration: 4,
-                    repeat: Number.POSITIVE_INFINITY,
-                    ease: "easeInOut",
-                    delay: 1,
                   }}
                 />
               </div>
@@ -181,7 +159,9 @@ export default function SpodyLanding() {
               <motion.span
                 className="text-[#fea46b] inline-block"
                 animate={{
-                  rotateY: [0, 360],
+                  scale: [1, 1.1, 1],
+                  rotate: [0, 5, -5, 0],
+                  opacity: [0.8, 1, 0.8],
                 }}
                 transition={{
                   duration: 2,
@@ -232,7 +212,7 @@ export default function SpodyLanding() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#011936] mb-6">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#011936] mb-6 text-balance">
               Everything You Need to Thrive
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -246,7 +226,7 @@ export default function SpodyLanding() {
                 icon: <MapPin className="h-8 w-8" />,
                 title: "Spot Finder",
                 description: "Filter by noise level, Wi-Fi strength, available outlets & reserve instantly",
-                features: ["Live availability", "Noise level filters", "Amenity search", "Instant booking"],
+                features: ["Find nearby spots", "Live availability", "Features search and filters"],
               },
               {
                 icon: <Users className="h-8 w-8" />,
@@ -257,8 +237,8 @@ export default function SpodyLanding() {
               {
                 icon: <Calendar className="h-8 w-8" />,
                 title: "Event Feed",
-                description: "Browse, filter & RSVP to every campus event from parties to study groups",
-                features: ["Unified event feed", "Smart filtering", "One-tap RSVP", "Calendar sync"],
+                description: "Browse and filter to every campus event from parties, study groups and clubs",
+                features: ["Unified event feed", "Smart filtering", "Friend sharing"],
               },
             ].map((feature, index) => (
               <motion.div
@@ -307,7 +287,7 @@ export default function SpodyLanding() {
             viewport={{ once: true }}
             className="max-w-4xl mx-auto text-center"
           >
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#011936] mb-6">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#011936] mb-6 text-balance">
               Help Us Build the Ultimate <span className="text-[#fea46b]">Student Network</span>
             </h2>
             <p className="text-xl text-gray-600 mb-12">
@@ -325,7 +305,7 @@ export default function SpodyLanding() {
                         value={formData.name}
                         onChange={handleInputChange}
                         required
-                        className="h-12 text-lg border-gray-200 focus:border-[#fea46b] focus:ring-[#fea46b]"
+                        className="h-12 sm:text-lg border-gray-200 focus:border-[#fea46b] focus:ring-[#fea46b]"
                       />
                     </div>
                     <div>
@@ -335,7 +315,7 @@ export default function SpodyLanding() {
                         value={formData.university}
                         onChange={handleInputChange}
                         required
-                        className="h-12 text-lg border-gray-200 focus:border-[#fea46b] focus:ring-[#fea46b]"
+                        className="h-12 sm:text-lg border-gray-200 focus:border-[#fea46b] focus:ring-[#fea46b]"
                       />
                     </div>
                   </div>
@@ -347,7 +327,7 @@ export default function SpodyLanding() {
                       value={formData.email}
                       onChange={handleInputChange}
                       required
-                      className="h-12 text-lg border-gray-200 focus:border-[#fea46b] focus:ring-[#fea46b]"
+                      className="h-12 sm:text-lg border-gray-200 focus:border-[#fea46b] focus:ring-[#fea46b]"
                     />
                   </div>
                   <div>
@@ -357,14 +337,14 @@ export default function SpodyLanding() {
                       value={formData.feature}
                       onChange={handleInputChange}
                       rows={4}
-                      className="text-lg border-gray-200 focus:border-[#fea46b] focus:ring-[#fea46b] resize-none"
+                      className="sm:text-lg border-gray-200 focus:border-[#fea46b] focus:ring-[#fea46b] resize-none"
                     />
                   </div>
                   <Button
                     type="submit"
                     size="lg"
                     disabled={isSubmitting}
-                    className="w-full sm:w-auto bg-[#fea46b] hover:bg-[#fea46b]/90 text-white px-12 py-4 text-lg font-semibold hover:shadow-lg hover:shadow-[#fea46b]/25 transition-all duration-300 disabled:opacity-50"
+                    className="w-full sm:w-auto bg-[#fea46b] hover:bg-[#fea46b]/90 text-white px-12 py-4 sm:text-lg font-semibold hover:shadow-lg hover:shadow-[#fea46b]/25 transition-all duration-300 disabled:opacity-50"
                   >
                     {isSubmitting ? "Joining..." : "Join the Beta"}
                   </Button>
@@ -389,40 +369,6 @@ export default function SpodyLanding() {
           </motion.div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="bg-[#011936] text-white py-12">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="mb-6 md:mb-0 flex items-center">
-              <Image
-                src="/images/spody-logo.png"
-                alt="Spody Logo"
-                width={120}
-                height={40}
-                className="h-8 w-auto brightness-0 invert"
-              />
-              <div className="ml-4">
-                <p className="text-gray-300">Study Smarter. Connect Deeper.</p>
-              </div>
-            </div>
-
-            <div className="mb-6 md:mb-0">
-              <Link
-                href="#"
-                className="text-gray-300 hover:text-[#fea46b] transition-colors flex items-center space-x-2"
-              >
-                <Instagram className="h-5 w-5" />
-                <span>Instagram</span>
-              </Link>
-            </div>
-          </div>
-
-          <div className="border-t border-gray-700 mt-8 pt-8 text-center">
-            <p className="text-gray-400">© {new Date().getFullYear()} Spody. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
     </div>
   )
 }
