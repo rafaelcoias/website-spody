@@ -1,42 +1,26 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import Footer from "@/components/common/footer";
-import Navbar from "@/components/common/navbar";
+import type React from "react"
+import type { Metadata } from "next"
+import { Inter } from "next/font/google"
+import "./globals.css"
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Spody - Spot to Study",
-  description: "A place to find spots to study and campus events. Study smarter, connect deeper.",
-  icons: {
-    icon: "/icon.png",
-    apple: "/icon.png",
-  }
-};
+  title: "Spody - Your Ultimate Student Companion",
+  description:
+    "Find the perfect study spot and discover amazing campus events. Your ultimate student companion for academic success and social connection.",
+}
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: React.ReactNode
+}) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}
-      >
-        <Navbar />
+      <body className={inter.className}>
         {children}
-        <Footer />
       </body>
     </html>
-  );
+  )
 }
