@@ -8,66 +8,12 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import Link from "next/link"
+import { studySpots } from "@/data/dummy-data"
 
 export default function OrganizationSpotsPage() {
   const [searchQuery, setSearchQuery] = useState("")
 
-  const spots = [
-    {
-      id: "1",
-      name: "Biblioteca Central",
-      type: "Biblioteca",
-      capacity: 300,
-      address: "Campo Grande 016, 1749-016 Lisboa",
-      amenities: ["wifi", "quiet", "books", "printer"],
-      image: "/placeholder.svg?height=200&width=300",
-      rating: 4.7,
-      views: 234,
-      favorites: 45,
-      isActive: true,
-    },
-    {
-      id: "2",
-      name: "Café Estudante",
-      type: "Café",
-      capacity: 50,
-      address: "Rua da Escola Politécnica 58, 1250-102 Lisboa",
-      amenities: ["wifi", "coffee", "food", "social"],
-      image: "/placeholder.svg?height=200&width=300",
-      rating: 4.0,
-      views: 189,
-      favorites: 32,
-      isActive: true,
-    },
-    {
-      id: "3",
-      name: "Sala Silenciosa IST",
-      type: "Sala de estudo",
-      capacity: 80,
-      address: "Av. Rovisco Pais 1, 1049-001 Lisboa",
-      amenities: ["wifi", "quiet", "individual"],
-      image: "/placeholder.svg?height=200&width=300",
-      rating: 4.8,
-      views: 156,
-      favorites: 28,
-      isActive: true,
-    },
-    {
-      id: "4",
-      name: "Coworking Príncipe Real",
-      type: "Coworking",
-      capacity: 120,
-      address: "Praça do Príncipe Real 26, 1250-184 Lisboa",
-      amenities: ["wifi", "coffee", "printer", "meeting_rooms"],
-      image: "/placeholder.svg?height=200&width=300",
-      rating: 4.3,
-      views: 98,
-      favorites: 19,
-      isActive: false,
-    },
-  ]
-
-  const filteredSpots = spots.filter(
+  const filteredSpots = studySpots.filter(
     (spot) =>
       spot.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       spot.type.toLowerCase().includes(searchQuery.toLowerCase()),
@@ -164,7 +110,7 @@ export default function OrganizationSpotsPage() {
                 <div className="space-y-2 text-sm text-gray-600 mb-3">
                   <div className="flex items-center gap-2">
                     <MapPin className="w-4 h-4" />
-                    <span className="line-clamp-1">{spot.address}</span>
+                    <span className="line-clamp-1">{spot.location.address}</span>
                   </div>
 
                   <div className="flex items-center gap-2">

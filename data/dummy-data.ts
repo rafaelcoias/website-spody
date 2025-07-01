@@ -2,7 +2,7 @@ export interface StudySpot {
   id: string
   name: string
   type: string
-  capacity: number
+  capacity: number  
   location: {
     address: string
     coordinates: { lat: number; lng: number }
@@ -15,23 +15,9 @@ export interface StudySpot {
   hasPrinter: boolean
   hasCoffee: boolean
   university?: string
-}
-
-export interface Event {
-  id: string
-  title: string
-  description: string
-  date: string
-  time: string
-  location: {
-    name: string
-    address: string
-    coordinates: { lat: number; lng: number }
-  }
-  image: string
-  category: string
-  isHot: boolean
-  organizer: string
+  favorites: number
+  views: number
+  isActive?: boolean
 }
 
 export const studySpots: StudySpot[] = [
@@ -45,13 +31,15 @@ export const studySpots: StudySpot[] = [
       coordinates: { lat: 38.7372, lng: -9.1545 },
     },
     amenities: ["wifi", "printer", "coffee", "quiet"],
-    image: "/images/spots/1.png",
+    image: "/images/spots/1.jpg",
     rating: 4.5,
     isQuiet: true,
     hasWifi: true,
     hasPrinter: true,
     hasCoffee: true,
     university: "Universidade de Lisboa",
+    favorites: 0,
+    views: 0,
   },
   {
     id: "2",
@@ -63,12 +51,14 @@ export const studySpots: StudySpot[] = [
       coordinates: { lat: 38.7115, lng: -9.1405 },
     },
     amenities: ["wifi", "quiet", "group_study"],
-    image: "/images/spots/2.png",
+    image: "/images/spots/2.jpeg",
     rating: 4.2,
     isQuiet: true,
     hasWifi: true,
     hasPrinter: false,
     hasCoffee: false,
+    favorites: 0,
+    views: 0,
   },
   {
     id: "3",
@@ -80,12 +70,14 @@ export const studySpots: StudySpot[] = [
       coordinates: { lat: 38.7569, lng: -9.1553 },
     },
     amenities: ["wifi", "quiet", "books", "printer"],
-    image: "/images/spots/3.png",
+    image: "/images/spots/3.jpg",
     rating: 4.7,
     isQuiet: true,
     hasWifi: true,
     hasPrinter: true,
     hasCoffee: false,
+    favorites: 0,
+    views: 0,
   },
   {
     id: "4",
@@ -103,6 +95,8 @@ export const studySpots: StudySpot[] = [
     hasWifi: true,
     hasPrinter: false,
     hasCoffee: true,
+    favorites: 0,
+    views: 0,
   },
   {
     id: "5",
@@ -114,13 +108,15 @@ export const studySpots: StudySpot[] = [
       coordinates: { lat: 38.7369, lng: -9.1395 },
     },
     amenities: ["wifi", "quiet", "individual"],
-    image: "/images/spots/5.png",
+    image: "/images/spots/1.jpg",
     rating: 4.8,
     isQuiet: true,
     hasWifi: true,
     hasPrinter: false,
     hasCoffee: false,
     university: "Instituto Superior Técnico",
+    favorites: 0,
+    views: 0,
   },
   {
     id: "6",
@@ -132,12 +128,14 @@ export const studySpots: StudySpot[] = [
       coordinates: { lat: 38.7155, lng: -9.1485 },
     },
     amenities: ["wifi", "coffee", "printer", "meeting_rooms"],
-    image: "/images/spots/6.png",
+    image: "/images/spots/2.jpeg",
     rating: 4.3,
     isQuiet: false,
     hasWifi: true,
     hasPrinter: true,
     hasCoffee: true,
+    favorites: 0,
+    views: 0,
   },
   {
     id: "7",
@@ -149,12 +147,14 @@ export const studySpots: StudySpot[] = [
       coordinates: { lat: 38.7105, lng: -9.1425 },
     },
     amenities: ["wifi", "quiet", "books", "research"],
-    image: "/images/spots/7.png",
+    image: "/images/spots/3.jpg",
     rating: 4.4,
     isQuiet: true,
     hasWifi: true,
     hasPrinter: true,
     hasCoffee: false,
+    favorites: 0,
+    views: 0,
   },
   {
     id: "8",
@@ -166,12 +166,14 @@ export const studySpots: StudySpot[] = [
       coordinates: { lat: 38.7125, lng: -9.1465 },
     },
     amenities: ["wifi", "creative", "collaborative", "coffee"],
-    image: "/images/spots/8.png",
+    image: "/images/spots/4.png",
     rating: 4.1,
     isQuiet: false,
     hasWifi: true,
     hasPrinter: true,
     hasCoffee: true,
+    favorites: 0,
+    views: 0,
   },
   {
     id: "9",
@@ -183,13 +185,15 @@ export const studySpots: StudySpot[] = [
       coordinates: { lat: 38.7575, lng: -9.1565 },
     },
     amenities: ["wifi", "24h", "quiet", "security"],
-    image: "/images/spots/9.png",
+    image: "/images/spots/1.jpg",
     rating: 4.6,
     isQuiet: true,
     hasWifi: true,
     hasPrinter: false,
     hasCoffee: false,
     university: "Faculdade de Ciências",
+    favorites: 0,
+    views: 0,
   },
   {
     id: "10",
@@ -201,14 +205,94 @@ export const studySpots: StudySpot[] = [
       coordinates: { lat: 38.7185, lng: -9.1335 },
     },
     amenities: ["wifi", "outdoor", "view", "fresh_air"],
-    image: "/images/spots/10.png",
+    image: "/images/spots/2.jpeg",
     rating: 4.2,
     isQuiet: true,
     hasWifi: true,
     hasPrinter: false,
     hasCoffee: false,
+    favorites: 0,
+    views: 0,
+  },
+  {
+    id: "11",
+    name: "Biblioteca Nacional de España",
+    type: "Biblioteca",
+    capacity: 500,
+    location: {
+      address: "Paseo de Recoletos, 20-22, 28001 Madrid",
+      coordinates: { lat: 40.4230, lng: -3.6884 },
+    },
+    amenities: ["wifi", "quiet", "books", "printer"],
+    image: "/images/spots/1.jpg",
+    rating: 4.8,
+    isQuiet: true,
+    hasWifi: true,
+    hasPrinter: true,
+    hasCoffee: false,
+    university: "Universidad Complutense de Madrid",
+    favorites: 0,
+    views: 0,
+  },
+  {
+    id: "12",
+    name: "Café de Estudiantes Madrid",
+    type: "Café",
+    capacity: 60,
+    location: {
+      address: "Calle de Alcalá, 125, 28009 Madrid",
+      coordinates: { lat: 40.4237, lng: -3.6691 },
+    },
+    amenities: ["wifi", "coffee", "food", "social"],
+    image: "/images/spots/2.jpeg",
+    rating: 4.3,
+    isQuiet: false,
+    hasWifi: true,
+    hasPrinter: false,
+    hasCoffee: true,
+    favorites: 0,
+    views: 0,
+  },
+  {
+    id: "13",
+    name: "Espacio Coworking Gran Vía",
+    type: "Coworking",
+    capacity: 100,
+    location: {
+      address: "Gran Vía, 28, 28013 Madrid",
+      coordinates: { lat: 40.4196, lng: -3.7036 },
+    },
+    amenities: ["wifi", "coffee", "printer", "meeting_rooms"],
+    image: "/images/spots/3.jpg",
+    rating: 4.5,
+    isQuiet: false,
+    hasWifi: true,
+    hasPrinter: true,
+    hasCoffee: true,
+    favorites: 0,
+    views: 0,
   },
 ]
+
+export interface Event {
+  id: string
+  title: string
+  description: string
+  date: string
+  time: string
+  location: {
+    name: string
+    address: string
+    coordinates: { lat: number; lng: number }
+  }
+  image: string
+  category: string
+  isHot: boolean
+  organizer: string
+  maxAttendees: number
+  attendees: string[]
+  status: "upcoming" | "ongoing" | "completed" | "cancelled"
+}
 
 export const events: Event[] = [
   {
@@ -223,10 +307,13 @@ export const events: Event[] = [
       address: "Parque das Nações, 1990-200 Lisboa",
       coordinates: { lat: 38.7681, lng: -9.0947 },
     },
-    image: "/images/events/1.png",
+    image: "/images/events/1.webp",
     category: "Social",
     isHot: true,
     organizer: "Lisbon Student Association",
+    maxAttendees: 100,
+    attendees: [],
+    status: "upcoming",
   },
   {
     id: "2",
@@ -240,10 +327,13 @@ export const events: Event[] = [
       address: "Av. Rovisco Pais 1, 1049-001 Lisboa",
       coordinates: { lat: 38.7369, lng: -9.1395 },
     },
-    image: "/images/events/2.png",
+    image: "/images/events/2.jpg",
     category: "Academic",
     isHot: false,
     organizer: "Tech Students Lisboa",
+    maxAttendees: 80,
+    attendees: [],
+    status: "upcoming",
   },
   {
     id: "3",
@@ -256,10 +346,13 @@ export const events: Event[] = [
       address: "Av. Rovisco Pais 1, 1049-001 Lisboa",
       coordinates: { lat: 38.7369, lng: -9.1395 },
     },
-    image: "/images/events/3.png",
+    image: "/images/events/3.webp",
     category: "Study",
     isHot: false,
     organizer: "Math Study Circle",
+    maxAttendees: 30,
+    attendees: [],
+    status: "upcoming",
   },
   {
     id: "4",
@@ -272,10 +365,13 @@ export const events: Event[] = [
       address: "Av. de Berna 15, 1050-036 Lisboa",
       coordinates: { lat: 38.7385, lng: -9.1535 },
     },
-    image: "/images/events/4.png",
+    image: "/images/events/4.jpg",
     category: "Career",
     isHot: true,
     organizer: "University Career Services",
+    maxAttendees: 200,
+    attendees: [],
+    status: "upcoming",
   },
   {
     id: "5",
@@ -288,10 +384,13 @@ export const events: Event[] = [
       address: "Rua Ivens 2-4, 1200-225 Lisboa",
       coordinates: { lat: 38.7095, lng: -9.1415 },
     },
-    image: "/images/events/5.png",
+    image: "/images/events/5.webp",
     category: "Social",
     isHot: false,
     organizer: "Language Exchange Lisboa",
+    maxAttendees: 50,
+    attendees: [],
+    status: "upcoming",
   },
   {
     id: "6",
@@ -304,10 +403,13 @@ export const events: Event[] = [
       address: "Av. das Forças Armadas, 1649-026 Lisboa",
       coordinates: { lat: 38.7505, lng: -9.1545 },
     },
-    image: "/images/events/6.png",
+    image: "/images/events/1.webp",
     category: "Business",
     isHot: true,
     organizer: "Entrepreneurship Club",
+    maxAttendees: 60,
+    attendees: [],
+    status: "upcoming",
   },
   {
     id: "7",
@@ -320,10 +422,13 @@ export const events: Event[] = [
       address: "1170-253 Lisboa",
       coordinates: { lat: 38.7185, lng: -9.1335 },
     },
-    image: "/images/events/7.png",
+    image: "/images/events/2.jpg",
     category: "Creative",
     isHot: false,
     organizer: "Photography Society",
+    maxAttendees: 25,
+    attendees: [],
+    status: "upcoming",
   },
   {
     id: "8",
@@ -336,10 +441,13 @@ export const events: Event[] = [
       address: "Alameda da Universidade, 1649-004 Lisboa",
       coordinates: { lat: 38.7505, lng: -9.1585 },
     },
-    image: "/images/events/8.png",
+    image: "/images/events/3.webp",
     category: "Wellness",
     isHot: false,
     organizer: "Student Wellness Center",
+    maxAttendees: 120,
+    attendees: [],
+    status: "upcoming",
   },
   {
     id: "9",
@@ -352,10 +460,13 @@ export const events: Event[] = [
       address: "Campo Grande, 1749-016 Lisboa",
       coordinates: { lat: 38.7555, lng: -9.1575 },
     },
-    image: "/images/events/9.png",
+    image: "/images/events/4.jpg",
     category: "Cultural",
     isHot: true,
     organizer: "International Students Association",
+    maxAttendees: 300,
+    attendees: [],
+    status: "upcoming",
   },
   {
     id: "10",
@@ -368,9 +479,69 @@ export const events: Event[] = [
       address: "Av. de Berna 26C, 1050-036 Lisboa",
       coordinates: { lat: 38.7375, lng: -9.1525 },
     },
-    image: "/images/events/10.png",
+    image: "/images/events/5.webp",
     category: "Tech",
     isHot: false,
     organizer: "Coding Club Lisboa",
+    maxAttendees: 40,
+    attendees: [],
+    status: "upcoming",
+  },
+  {
+    id: "11",
+    title: "Madrid Student Networking Night",
+    description: "Connect with fellow students and young professionals in Madrid. Enjoy drinks, snacks, and great conversations.",
+    date: "22 Novembro 2022",
+    time: "18:30 - 21:00",
+    location: {
+      name: "Espacio Coworking Gran Vía",
+      address: "Gran Vía, 28, 28013 Madrid",
+      coordinates: { lat: 40.4196, lng: -3.7036 },
+    },
+    image: "/images/events/1.jpg",
+    category: "Social",
+    isHot: true,
+    organizer: "Madrid Student Association",
+    maxAttendees: 100,
+    attendees: [],
+    status: "upcoming",
+  },
+  {
+    id: "12",
+    title: "Tech Meetup: Future of Web Development",
+    description: "Join Madrid's top developers for talks and networking about the latest trends in web development.",
+    date: "24 Novembro 2022",
+    time: "17:00 - 20:00",
+    location: {
+      name: "Biblioteca Nacional de España",
+      address: "Paseo de Recoletos, 20-22, 28001 Madrid",
+      coordinates: { lat: 40.4230, lng: -3.6884 },
+    },
+    image: "/images/events/2.jpg",
+    category: "Tech",
+    isHot: false,
+    organizer: "Madrid Web Devs",
+    maxAttendees: 80,
+    attendees: [],
+    status: "upcoming",
+  },
+  {
+    id: "13",
+    title: "Art & Culture Walk: Madrid Edition",
+    description: "Explore Madrid's art and culture scene with guided tours and group activities.",
+    date: "27 Novembro 2022",
+    time: "10:00 - 13:00",
+    location: {
+      name: "Museo del Prado",
+      address: "Calle de Ruiz de Alarcón 23, 28014 Madrid",
+      coordinates: { lat: 40.4138, lng: -3.6921 },
+    },
+    image: "/images/events/3.jpg",
+    category: "Cultural",
+    isHot: false,
+    organizer: "Madrid Culture Club",
+    maxAttendees: 50,
+    attendees: [],
+    status: "upcoming",
   },
 ]

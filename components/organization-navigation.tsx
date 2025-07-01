@@ -10,8 +10,6 @@ const navItems = [
   { href: "/org/dashboard", label: "Dashboard", icon: BarChart3 },
   { href: "/org/events", label: "Events", icon: Calendar },
   { href: "/org/spots", label: "Study Spots", icon: MapPin },
-  { href: "/org/users", label: "Users", icon: Users },
-  { href: "/org/settings", label: "Settings", icon: Settings },
 ]
 
 const createItems = [

@@ -1,8 +1,9 @@
 "use client"
 import Image from "next/image"
-import { MapPin, Heart, Share, Wifi, Printer, Coffee, Users, X } from "lucide-react"
+import { Heart, Share, Wifi, Printer, Coffee, Users, X } from "lucide-react"
 import type { StudySpot, Event } from "@/data/dummy-data"
 import { Button } from "@/components/ui/button"
+import { GoogleMap } from "./google-map"
 
 interface MapViewProps {
   items: (StudySpot | Event)[]
@@ -12,43 +13,14 @@ interface MapViewProps {
 }
 
 export function MapView({ items, type, onItemSelect, selectedItem }: MapViewProps) {
-  // Simulate map pins with absolute positioning
-  const mapPins = [
-    { id: "1", x: "20%", y: "30%", color: "bg-primary" },
-    { id: "2", x: "60%", y: "20%", color: "bg-primary" },
-    { id: "3", x: "40%", y: "50%", color: "bg-primary" },
-    { id: "4", x: "70%", y: "60%", color: "bg-primary" },
-    { id: "5", x: "30%", y: "70%", color: "bg-primary" },
-    { id: "6", x: "80%", y: "40%", color: "bg-primary" },
-  ]
-
   return (
-    <div className="relative w-full h-full bg-gray-200">
-      {/* Simulated Map Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-300">
-        <div className="absolute inset-0 opacity-20">
-          <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <path d="M0,20 Q25,10 50,20 T100,15 L100,100 L0,100 Z" fill="#e5e7eb" />
-            <path d="M0,40 Q30,30 60,40 T100,35 L100,100 L0,100 Z" fill="#d1d5db" />
-          </svg>
-        </div>
-      </div>
-
-      {/* Map Pins */}
-      {mapPins.slice(0, items.length).map((pin, index) => (
-        <button
-          key={pin.id}
-          className={`absolute w-8 h-8 ${pin.color} rounded-full shadow-lg transform -translate-x-1/2 -translate-y-1/2 hover:scale-110 transition-transform z-10`}
-          style={{ left: pin.x, top: pin.y }}
-          onClick={() => onItemSelect(items[index])}
-        >
-          <MapPin className="w-5 h-5 text-white mx-auto" />
-        </button>
-      ))}
+    <div className="relative w-full h-full">
+      {/* Google Map */}
+      <GoogleMap items={items} type={type} onItemSelect={onItemSelect} selectedItem={selectedItem} />
 
       {/* Spody Logo */}
-      <div className="absolute top-4 left-4 z-20">
-        <h1 className="text-2xl font-bold text-secondary">Spody</h1>
+      <div className="absolute top-4 left-4 z-20 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-2">
+        <h1 className="text-xl font-bold text-secondary">Spody</h1>
       </div>
 
       {/* Selected Item Card */}

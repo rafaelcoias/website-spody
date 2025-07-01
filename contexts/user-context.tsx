@@ -31,7 +31,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     id: "1",
     name: "Student Association Lisboa",
     email: "admin@studentassociation.pt",
-    role: "organization",
+    role: "student",
     organizationName: "Student Association Lisboa",
     organizationType: "University Association",
   })

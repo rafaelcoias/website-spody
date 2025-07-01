@@ -117,7 +117,7 @@ export default function CreateSpotPage() {
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="max-w-2xl space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6">
           {/* Basic Information */}
           <div className="bg-white rounded-xl p-6 shadow-sm">
             <h2 className="text-lg font-semibold text-secondary mb-4">Basic Information</h2>

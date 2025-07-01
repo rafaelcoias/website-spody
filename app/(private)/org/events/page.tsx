@@ -8,65 +8,11 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import Link from "next/link"
+import { events } from "@/data/dummy-data"
 
 export default function OrganizationEventsPage() {
   const [searchQuery, setSearchQuery] = useState("")
   const [filterStatus, setFilterStatus] = useState("all")
-
-  const events = [
-    {
-      id: "1",
-      title: "Tech Talk: AI in Education",
-      description: "Discover how artificial intelligence is transforming education.",
-      date: "25 Oct 2022",
-      time: "18:00 - 20:30",
-      location: "IST Alameda",
-      attendees: 45,
-      maxAttendees: 100,
-      status: "upcoming",
-      category: "Academic",
-      image: "/placeholder.svg?height=200&width=300",
-    },
-    {
-      id: "2",
-      title: "Career Fair 2022",
-      description: "Meet top employers and discover internship opportunities.",
-      date: "28 Oct 2022",
-      time: "09:00 - 17:00",
-      location: "Pavilhão Carlos Lopes",
-      attendees: 120,
-      maxAttendees: 200,
-      status: "upcoming",
-      category: "Career",
-      image: "/placeholder.svg?height=200&width=300",
-    },
-    {
-      id: "3",
-      title: "Study Group: Mathematics",
-      description: "Weekly mathematics study group for engineering students.",
-      date: "26 Oct 2022",
-      time: "14:00 - 16:00",
-      location: "Biblioteca IST",
-      attendees: 15,
-      maxAttendees: 25,
-      status: "ongoing",
-      category: "Study",
-      image: "/placeholder.svg?height=200&width=300",
-    },
-    {
-      id: "4",
-      title: "Portuguese Language Exchange",
-      description: "Practice Portuguese with native speakers.",
-      date: "20 Oct 2022",
-      time: "19:00 - 21:00",
-      location: "Café Central",
-      attendees: 32,
-      maxAttendees: 40,
-      status: "completed",
-      category: "Social",
-      image: "/placeholder.svg?height=200&width=300",
-    },
-  ]
 
   const filteredEvents = events.filter((event) => {
     const matchesSearch = event.title.toLowerCase().includes(searchQuery.toLowerCase())
@@ -179,13 +125,13 @@ export default function OrganizationEventsPage() {
 
                   <div className="flex items-center gap-2">
                     <MapPin className="w-4 h-4" />
-                    <span>{event.location}</span>
+                    <span>{event.location.address}</span>
                   </div>
 
                   <div className="flex items-center gap-2">
                     <Users className="w-4 h-4" />
                     <span>
-                      {event.attendees}/{event.maxAttendees} attendees
+                      {event.attendees.length}/{event.maxAttendees} attendees
                     </span>
                   </div>
                 </div>
@@ -193,13 +139,13 @@ export default function OrganizationEventsPage() {
                 <div className="mt-4 pt-4 border-t">
                   <div className="flex justify-between items-center">
                     <div className="text-sm text-gray-600">
-                      {Math.round((event.attendees / event.maxAttendees) * 100)}% full
+                      {Math.round((event.attendees.length / event.maxAttendees) * 100)}% full
                     </div>
                     <div className="w-24 bg-gray-200 rounded-full h-2">
                       <div
                         className="bg-primary h-2 rounded-full"
                         style={{
-                          width: `${Math.min((event.attendees / event.maxAttendees) * 100, 100)}%`,
+                          width: `${Math.min((event.attendees.length / event.maxAttendees) * 100, 100)}%`,
                         }}
                       />
                     </div>

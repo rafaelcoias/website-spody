@@ -1,12 +1,12 @@
 "use client"
 
 import { useState } from "react"
-import { Search, Filter } from "lucide-react"
+import { Filter } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import { studySpots, events } from "@/data/dummy-data"
 import { FilterModal } from "@/components/filter-modal"
 import { MapView } from "@/components/map-view"
+import { MapSearch } from "@/components/map-search"
 
 export default function MapPage() {
   const [activeTab, setActiveTab] = useState<"spots" | "events">("spots")
@@ -44,13 +44,13 @@ export default function MapPage() {
 
         {/* Search and Filter */}
         <div className="flex gap-3">
-          <div className="flex-1 relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-            <Input
-              placeholder="Search here"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10"
+          <div className="flex-1">
+            <MapSearch
+              placeholder="Search locations in Lisbon..."
+              onPlaceSelect={(place) => {
+                console.log("Selected place:", place)
+                // You can add logic here to center the map on the selected place
+              }}
             />
           </div>
           <Button
