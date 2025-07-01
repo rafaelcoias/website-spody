@@ -3,10 +3,13 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
+import { Router } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const [scrolled, setScrolled] = useState(false)
+    const router = useRouter()
 
     // Handle scroll event to add shadow when scrolled
     React.useEffect(() => {
@@ -42,19 +45,25 @@ export default function Navbar() {
                     </div>
 
                     {/* Desktop Navigation */}
-                    <div className="hidden md:flex items-center">
+                    <div className="hidden md:flex items-center gap-4">
                         <Button className="bg-[#fea46b] hover:bg-[#fea46b]/90 text-white cursor-pointer" onClick={() => scrollToSection("cta")}>
                             Get Started
+                        </Button>
+                        <Button variant={"outline"} className="" onClick={() => router.push("/login")}>
+                            Login
                         </Button>
                     </div>
 
                     {/* Mobile menu button */}
-                    <div className="md:hidden">
+                    <div className="md:hidden flex gap-4">
                         <Button
                             className="bg-[#fea46b] hover:bg-[#fea46b]/90 text-white text-sm px-4 cursor-pointer"
                             onClick={() => scrollToSection("cta")}
                         >
                             Get Started
+                        </Button>
+                        <Button variant={"outline"} className="" onClick={() => router.push("/login")}>
+                            Login
                         </Button>
                     </div>
                 </div>

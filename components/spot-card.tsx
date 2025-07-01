@@ -3,12 +3,15 @@ import { Heart, Wifi, Printer, Coffee, Users, MapPin } from "lucide-react"
 import type { StudySpot } from "@/data/dummy-data"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import { useState } from "react"
 
 interface SpotCardProps {
   spot: StudySpot
 }
 
 export function SpotCard({ spot }: SpotCardProps) {
+  const [favorite, setFavorite] = useState(false)
+
   const getAmenityIcon = (amenity: string) => {
     switch (amenity) {
       case "wifi":
@@ -35,8 +38,8 @@ export function SpotCard({ spot }: SpotCardProps) {
             height={200}
             className="w-full h-48 object-cover"
           />
-          <Button size="icon" variant="ghost" className="absolute top-3 right-3 bg-white/80 hover:bg-white">
-            <Heart className="w-4 h-4" />
+          <Button size="icon" variant="ghost" onClick={(e) => {e.preventDefault(); e.stopPropagation(); setFavorite(!favorite)}} className="absolute top-3 right-3 bg-white/80 hover:bg-white">
+            <Heart className={`w-4 h-4 ${favorite ? "fill-red-500" : ""}`} />
           </Button>
         </div>
 

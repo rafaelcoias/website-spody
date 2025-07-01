@@ -1,5 +1,5 @@
-import Footer from '@/components/website-common/footer';
-import Navbar from '@/components/website-common/navbar';
+import Footer from '@/components/common/footer';
+import Navbar from '@/components/common/navbar';
 import { Metadata } from 'next';
 import React, { ReactNode } from 'react';
 

@@ -3,12 +3,15 @@ import { Heart, Share, MapPin, Calendar, Clock } from "lucide-react"
 import type { Event } from "@/data/dummy-data"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import { useState } from "react"
 
 interface EventCardProps {
   event: Event
 }
 
 export function EventCard({ event }: EventCardProps) {
+  const [favorite, setFavorite] = useState(false)
+
   return (
     <Link href={`/event/${event.id}`}>
       <div className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow cursor-pointer">
@@ -26,11 +29,8 @@ export function EventCard({ event }: EventCardProps) {
             </div>
           )}
           <div className="absolute top-3 right-3 flex gap-2">
-            <Button size="icon" variant="ghost" className="bg-white/80 hover:bg-white w-8 h-8">
-              <Share className="w-4 h-4" />
-            </Button>
-            <Button size="icon" variant="ghost" className="bg-white/80 hover:bg-white w-8 h-8">
-              <Heart className="w-4 h-4" />
+            <Button size="icon" variant="ghost" onClick={(e) => { e.preventDefault(); e.stopPropagation(); setFavorite(!favorite) }} className="bg-white/80 hover:bg-white">
+              <Heart className={`w-4 h-4 ${favorite ? "fill-red-500" : ""}`} />
             </Button>
           </div>
         </div>

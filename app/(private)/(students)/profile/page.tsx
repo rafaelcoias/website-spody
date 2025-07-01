@@ -3,6 +3,7 @@
 import { Settings, Info } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import Link from "next/link"
 
 export default function ProfilePage() {
   const user = {
@@ -88,6 +89,9 @@ export default function ProfilePage() {
             <div className="text-sm text-gray-600">Study Buddies</div>
           </div>
         </div>
+        <Button className="mt-4">
+          <Link href="/">Log out</Link>
+        </Button>
       </div>
     </div>
   )

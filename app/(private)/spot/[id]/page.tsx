@@ -24,6 +24,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { Progress } from "@/components/ui/progress"
 import { studySpots } from "@/data/dummy-data"
+import Link from "next/link"
 
 export default function SpotDetailPage() {
   const params = useParams()
@@ -135,7 +136,7 @@ export default function SpotDetailPage() {
           </div>
 
           {/* Rating Badge */}
-          <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1">
+          <div className="absolute bottom-6 left-4 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1">
             <div className="flex items-center gap-1">
               <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
               <span className="font-medium">{spot.rating}</span>
@@ -168,7 +169,16 @@ export default function SpotDetailPage() {
                     >
                       {isBookmarked ? "Bookmarked ✓" : "Bookmark Spot"}
                     </Button>
-                    <Button variant="outline" size="sm">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() =>
+                      window.open(
+                        `https://www.google.com/maps/search/?api=1&query=${spot.location.coordinates.lat},${spot.location.coordinates.lng}`,
+                        "_blank"
+                      )
+                      }
+                    >
                       <Navigation className="w-4 h-4 mr-2" />
                       Get Directions
                     </Button>
@@ -305,9 +315,10 @@ export default function SpotDetailPage() {
                     .filter((s) => s.id !== spot.id && s.type === spot.type)
                     .slice(0, 3)
                     .map((similarSpot) => (
-                      <div
+                      <Link
+                        href={`/spot/${similarSpot.id}`}
                         key={similarSpot.id}
-                        className="border rounded-lg p-3 hover:shadow-md transition-shadow cursor-pointer"
+                        className="border rounded-lg p-3 hover:shadow-md transition-shadow cursor-pointer w-full h-full"
                       >
                         <img
                           src={similarSpot.image || "/placeholder.svg"}
@@ -322,7 +333,7 @@ export default function SpotDetailPage() {
                             <span>{similarSpot.rating}</span>
                           </div>
                         </div>
-                      </div>
+                      </Link>
                     ))}
                 </div>
               </CardContent>

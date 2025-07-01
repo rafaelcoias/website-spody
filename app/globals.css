@@ -87,6 +87,10 @@
   body {
     @apply bg-background text-foreground;
   }
+  
+  button {
+    @apply !cursor-pointer
+  }
 }
 
 .primary-color {
@@ -116,3 +120,4 @@
 .text-secondary {
   color: #011936;
 }
+
