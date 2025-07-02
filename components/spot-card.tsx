@@ -11,62 +11,50 @@ interface SpotCardProps {
 
 export function SpotCard({ spot }: SpotCardProps) {
   const [favorite, setFavorite] = useState(false)
-
-  const getAmenityIcon = (amenity: string) => {
-    switch (amenity) {
-      case "wifi":
-        return <Wifi className="w-4 h-4" />
-      case "printer":
-        return <Printer className="w-4 h-4" />
-      case "coffee":
-        return <Coffee className="w-4 h-4" />
-      case "group_study":
-        return <Users className="w-4 h-4" />
-      default:
-        return null
-    }
-  }
-
   return (
     <Link href={`/spot/${spot.id}`}>
       <div className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow cursor-pointer">
         <div className="relative">
           <Image
             src={spot.image || "/placeholder.svg"}
-            alt={spot.name}
+            alt={spot.name || "Study Spot Image"}
             width={300}
             height={200}
-            className="w-full h-48 object-cover"
+            className="w-full h-32 object-cover"
           />
-          <Button size="icon" variant="ghost" onClick={(e) => {e.preventDefault(); e.stopPropagation(); setFavorite(!favorite)}} className="absolute top-3 right-3 bg-white/80 hover:bg-white">
+          <Button size="icon" variant="ghost" onClick={(e) => { e.preventDefault(); e.stopPropagation(); setFavorite(!favorite) }} className="absolute top-3 right-3 bg-white/80 hover:bg-white">
             <Heart className={`w-4 h-4 ${favorite ? "fill-red-500" : ""}`} />
           </Button>
         </div>
 
         <div className="p-4">
-          <div className="flex justify-between items-start mb-2">
-            <div>
+          <div className="w-full flex justify-between items-start">
+            <div className="w-full">
               <h3 className="font-semibold text-lg text-secondary">{spot.name}</h3>
-              <p className="text-sm text-gray-600">{spot.type}</p>
+              <div className="flex justify-between items-center w-full">
+                <p className="text-sm text-gray-600">{spot.type}</p>
+                <div className="flex items-center text-sm text-gray-600 mb-3">
+                  <MapPin className="w-4 h-4 mr-1" />
+                  <span>{spot.capacity} lugares</span>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div className="flex items-center text-sm text-gray-600 mb-3">
-            <MapPin className="w-4 h-4 mr-1" />
-            <span>{spot.capacity} lugares</span>
-          </div>
 
-          <div className="flex items-center gap-2 mb-3">
-            {spot.hasWifi && <Wifi className="w-4 h-4 text-primary" />}
-            {spot.hasPrinter && <Printer className="w-4 h-4 text-primary" />}
-            {spot.hasCoffee && <Coffee className="w-4 h-4 text-primary" />}
-            {spot.amenities.includes("group_study") && <Users className="w-4 h-4 text-primary" />}
-          </div>
+          <div className="flex w-full justify-between items-center">
+            <div className="flex items-center gap-2">
+              {spot.hasWifi && <Wifi className="w-4 h-4 text-primary" />}
+              {spot.hasPrinter && <Printer className="w-4 h-4 text-primary" />}
+              {spot.hasCoffee && <Coffee className="w-4 h-4 text-primary" />}
+              {spot?.amenities?.includes("group_study") && <Users className="w-4 h-4 text-primary" />}
+            </div>
 
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <div className="flex text-yellow-400">{"★".repeat(Math.floor(spot.rating))}</div>
-              <span className="text-sm text-gray-600 ml-1">{spot.rating}</span>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center">
+                <div className="flex text-yellow-400">{"★".repeat(Math.floor(spot.rating))}</div>
+                <span className="text-sm text-gray-600 ml-1">{spot.rating}</span>
+              </div>
             </div>
           </div>
         </div>

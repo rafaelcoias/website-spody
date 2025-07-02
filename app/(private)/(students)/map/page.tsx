@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Filter } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { studySpots, events } from "@/data/dummy-data"
@@ -13,6 +13,10 @@ export default function MapPage() {
   const [searchQuery, setSearchQuery] = useState("")
   const [showFilters, setShowFilters] = useState(false)
   const [selectedItem, setSelectedItem] = useState<any>(null)
+
+  useEffect(() => {
+    setSelectedItem(null)
+  }, [activeTab]);
 
   return (
     <div className="md:ml-64 h-screen bg-gray-50 flex flex-col">
@@ -48,8 +52,8 @@ export default function MapPage() {
             <MapSearch
               placeholder="Search locations in Lisbon..."
               onPlaceSelect={(place) => {
-                console.log("Selected place:", place)
-                // You can add logic here to center the map on the selected place
+                setSearchQuery(place.name)
+                setSelectedItem(place)
               }}
             />
           </div>

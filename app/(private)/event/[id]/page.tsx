@@ -106,7 +106,12 @@ export default function EventDetailPage() {
                     >
                       {isRegistered ? "Registered ✓" : "Register for Event"}
                     </Button>
-                    <Button variant="outline" size="sm">
+                    <Button variant="outline" size="sm" onClick={() =>
+                      window.open(
+                        `https://www.google.com/maps/search/?api=1&query=${event.location.coordinates.lat},${event.location.coordinates.lng}`,
+                        "_blank"
+                      )
+                    }>
                       <ExternalLink className="w-4 h-4 mr-2" />
                       View on Map
                     </Button>
